@@ -18,8 +18,10 @@ Copy-Item .env.example .env.local
 npm run dev
 ```
 
-Abre `http://localhost:3000`. Para probar en el celular, conéctalo a la misma red y abre
-`http://<IP-de-tu-PC>:3000`.
+Abre `http://localhost:3000`. Para probar en el celular, conéctalo a la misma red Wi-Fi y abre
+`http://<IP-de-tu-PC>:3000` (la IP sale de `ipconfig`). `next.config.ts` ya permite orígenes
+`192.168.*.*` en desarrollo (`allowedDevOrigins`); si tu red usa otro rango, agrégalo ahí. La
+primera vez, Windows puede pedir permiso de firewall para Node.js: acepta para redes privadas.
 
 En modo demo (`DATA_SOURCE=memory`) todo corre en memoria con un usuario demo que arranca con
 **50 créditos**. Los datos se borran al reiniciar el servidor.
