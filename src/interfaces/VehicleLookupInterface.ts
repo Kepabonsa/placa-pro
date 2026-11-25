@@ -27,6 +27,8 @@ export interface VehicleLookupResultInterface {
   lookup: LookupSummaryInterface
   report: VehicleReportInterface
   assessment: TrafficLightAssessmentInterface
+  /** Instant used to evaluate expirations (ISO 8601). */
+  evaluatedAt: string
   deal: DealInterface
   creditBalance: number
 }

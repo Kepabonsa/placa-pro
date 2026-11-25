@@ -59,7 +59,7 @@ export class LookupService {
       vehicleLabel: VehicleReportUtil.getLabel(report.vehicle),
     })
     const deal = await this.syncDeal(userId, lookup, report)
-    return this.buildResult(userId, lookup, report, assessment, deal)
+    return this.buildResult(userId, lookup, report, assessment, deal, now)
   }
 
   /**
@@ -77,8 +77,9 @@ export class LookupService {
     const deal =
       (await this.repositories.deals.findOne(userId, plate)) ??
       (await this.syncDeal(userId, lookup, lookup.report))
-    const assessment = TrafficLightService.evaluate(lookup.report, this.clock())
-    return this.buildResult(userId, lookup, lookup.report, assessment, deal)
+    const evaluatedAt = this.clock()
+    const assessment = TrafficLightService.evaluate(lookup.report, evaluatedAt)
+    return this.buildResult(userId, lookup, lookup.report, assessment, deal, evaluatedAt)
   }
 
   private async fetchFromProvider(
@@ -141,6 +142,7 @@ export class LookupService {
     report: VehicleReportInterface,
     assessment: TrafficLightAssessmentInterface,
     deal: DealInterface,
+    evaluatedAt: Date,
   ): Promise<VehicleLookupResultInterface> {
     const profile = await this.repositories.profiles.findOne(userId)
     return {
@@ -154,6 +156,7 @@ export class LookupService {
       },
       report,
       assessment,
+      evaluatedAt: evaluatedAt.toISOString(),
       deal,
       creditBalance: profile?.creditBalance ?? 0,
     }
