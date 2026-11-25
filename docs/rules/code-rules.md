@@ -95,6 +95,8 @@ Clases con métodos `static`, archivo en PascalCase con sufijo `Util` (`Currency
 
 - Las reglas 1, 2, 4, 5 y 7 se verifican automáticamente con ESLint (plugin local en
   `eslint-rules/`) y oxlint. Un error de lint es un bloqueo, no una sugerencia.
+- La regla `typescript/no-extraneous-class` de oxlint está desactivada: las utilidades y factorías
+  son clases `static` por convención del proyecto.
 - Los archivos de configuración que la herramienta exige con `export default`
   (`next.config.ts`, `vitest.config.ts`, `eslint.config.mjs`) quedan fuera de la regla 7.
 - Contratos de infraestructura (proveedores y repositorios) viven junto a su implementación en
